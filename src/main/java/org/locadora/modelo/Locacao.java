@@ -42,16 +42,16 @@ public class Locacao implements EntidadeBase {
 
     // Dentro da classe org.locadora.modelo.Locacao
 
+// Na classe Locacao.java
     public BigDecimal getValorTotal() {
-        BigDecimal total = BigDecimal.ZERO;
-        if (getItens() != null) {
-            for (ItemLocacao item : getItens()) {
-                BigDecimal dias = new BigDecimal(item.getDias());
-                BigDecimal precoDiario = item.getJogoPlataforma().getPrecoDiario();
-                total = total.add(dias.multiply(precoDiario));
-            }
-        }
-        return total;
+        return itens.stream()
+                .map(item -> {
+                    BigDecimal precoDiario = item.getJogoPlataforma().getPrecoDiario();
+                    BigDecimal dias = new BigDecimal(item.getDias());
+                    BigDecimal quantidade = new BigDecimal(item.getQuantidade()); // Use a nova variável
+                    return precoDiario.multiply(dias).multiply(quantidade); // Multiplique pela quantidade
+                })
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     // --- equals() e hashCode() ---
