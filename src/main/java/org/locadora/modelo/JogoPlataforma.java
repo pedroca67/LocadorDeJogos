@@ -15,9 +15,10 @@ public class JogoPlataforma implements EntidadeBase {
     @JoinColumn(name = "jogo_id")
     private Jogo jogo;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "plataforma_id")
     private Plataforma plataforma;
+
 
     private BigDecimal precoDiario;
 

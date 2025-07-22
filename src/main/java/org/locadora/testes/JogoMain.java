@@ -1,12 +1,11 @@
 package org.locadora.testes;
 
 import jakarta.persistence.*;
-import org.locadora.modelo.Jogo;
-import org.locadora.service.JogoService;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import org.locadora.modelo.*;
+import org.locadora.service.*;
+
+import java.math.*;
+import java.util.*;
 
 public class JogoMain {
     public static void main(String[] args) {
@@ -16,20 +15,43 @@ public class JogoMain {
         JogoService jogoService = new JogoService(em);
 
         System.out.println("--- Cadastro de Novo Jogo ---");
+
         System.out.print("Título do Jogo: ");
-        String titulo = sc.nextLine();
+        String titulo = sc.nextLine().trim();
+        if (titulo.isEmpty()) {
+            System.err.println("Erro: Título não pode estar vazio.");
+            return;
+        }
+
         System.out.print("Plataformas (separadas por vírgula, ex: PC,PS5,XBOX): ");
-        String plataformasInput = sc.nextLine();
+        String plataformasInput = sc.nextLine().trim();
         List<String> plataformas = Arrays.asList(plataformasInput.split(","));
+        if (plataformas.isEmpty()) {
+            System.err.println("Erro: Pelo menos uma plataforma deve ser informada.");
+            return;
+        }
+
         System.out.print("Preço diário de locação: ");
-        BigDecimal preco = sc.nextBigDecimal();
+        BigDecimal preco;
+        try {
+            preco = sc.nextBigDecimal();
+            if (preco.compareTo(BigDecimal.ZERO) <= 0) {
+                System.err.println("Erro: O preço deve ser positivo.");
+                return;
+            }
+        } catch (InputMismatchException e) {
+            System.err.println("Erro: Preço inválido.");
+            return;
+        }
 
         try {
             Jogo jogoSalvo = jogoService.salvar(titulo, plataformas, preco);
             System.out.println("\nJogo cadastrado com sucesso! ID: " + jogoSalvo.getId());
-        } catch (Exception e) {
-            System.err.println("Erro ao cadastrar jogo: " + e.getMessage());
-        } finally {
+        }  catch (Exception e) {
+        System.err.println("Erro ao cadastrar jogo:");
+        e.printStackTrace();
+    }
+ finally {
             em.close();
             emf.close();
             sc.close();

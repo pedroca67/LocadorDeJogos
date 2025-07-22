@@ -24,36 +24,17 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="7a37ee1f-3ac5-4bb7-96ef-8991b0a9c24a">
-      <console name="Connection" type="STANDARD" schema="locadora" session="Main"><![CDATA[SELECT
-    l.id AS id_locacao,          -- Pega o ID da tabela Locacao e renomeia para id_locacao
-    c.nome AS nome_cliente,      -- Pega o nome do cliente
-    l.data AS data_locacao,      -- Pega a data da locação
-    j.titulo AS jogo,            -- Pega o título do jogo
-    p.nome AS plataforma,        -- Pega o nome da plataforma
-    il.dias AS dias_alugado,     -- Pega a quantidade de dias
-    jp.precoDiario AS valor_diaria, -- Pega o preço diário do jogo naquela plataforma
-    (il.dias * jp.precoDiario) AS valor_pago_item -- Calcula o subtotal para este item
-FROM
-    Locacao l
-JOIN
-    Cliente c ON l.cliente_id = c.id
-JOIN
-    ItemLocacao il ON il.locacao_id = l.id
-JOIN
-    JogoPlataforma jp ON il.jogoPlataforma_id = jp.id
-JOIN
-    Jogo j ON jp.jogo_id = j.id
-JOIN
-    Plataforma p ON jp.plataforma_id = p.id
-ORDER BY
-    l.id; -- Ordena pelo ID da locação para agrupar visualmente os itens]]></console>
+      <console name="Connection" type="STANDARD" schema="information_schema" session="Main"><![CDATA[show database;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="7a37ee1f-3ac5-4bb7-96ef-8991b0a9c24a" object-ref="schemas/locadora/tables/cliente" />
+      <object connection-id="7a37ee1f-3ac5-4bb7-96ef-8991b0a9c24a" object-ref="consoles/Connection" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="7a37ee1f-3ac5-4bb7-96ef-8991b0a9c24a" />
@@ -70,6 +51,9 @@ ORDER BY
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>

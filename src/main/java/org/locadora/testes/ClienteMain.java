@@ -1,9 +1,10 @@
 package org.locadora.testes;
 
 import jakarta.persistence.*;
-import org.locadora.modelo.Cliente;
-import org.locadora.service.ClienteService;
-import java.util.Scanner;
+import org.locadora.modelo.*;
+import org.locadora.service.*;
+
+import java.util.*;
 
 public class ClienteMain {
     public static void main(String[] args) {
@@ -13,14 +14,34 @@ public class ClienteMain {
         ClienteService clienteService = new ClienteService(em);
 
         System.out.println("--- Cadastro de Novo Cliente ---");
+
         System.out.print("Nome: ");
-        String nome = sc.nextLine();
+        String nome = sc.nextLine().trim();
+        if (nome.isEmpty()) {
+            System.err.println("Erro: Nome não pode estar vazio.");
+            return;
+        }
+
         System.out.print("Email: ");
-        String email = sc.nextLine();
+        String email = sc.nextLine().trim();
+        if (email.isEmpty() || !email.contains("@")) {
+            System.err.println("Erro: Email inválido.");
+            return;
+        }
+
         System.out.print("Telefone: ");
-        String telefone = sc.nextLine();
+        String telefone = sc.nextLine().trim();
+        if (telefone.isEmpty()) {
+            System.err.println("Erro: Telefone não pode estar vazio.");
+            return;
+        }
+
         System.out.print("Senha: ");
-        String senha = sc.nextLine();
+        String senha = sc.nextLine().trim();
+        if (senha.length() < 4) {
+            System.err.println("Erro: Senha deve ter pelo menos 4 caracteres.");
+            return;
+        }
 
         try {
             Cliente clienteSalvo = clienteService.salvar(nome, email, telefone, senha);
