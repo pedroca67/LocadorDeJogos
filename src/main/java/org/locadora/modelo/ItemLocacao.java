@@ -12,6 +12,8 @@ public class ItemLocacao implements EntidadeBase {
 
     private Integer dias;
 
+    private Integer quantidade;
+
     @ManyToOne
     @JoinColumn(name = "locacao_id")
     private Locacao locacao;
