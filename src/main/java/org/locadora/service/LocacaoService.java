@@ -27,7 +27,7 @@ public class LocacaoService {
         this.jogoPlataformaRepository = new JogoPlataformaRepository(em);
     }
 
-    public Locacao alugar(Integer clienteId, Map<Integer, Integer> itensParaLocar) {
+    public Locacao alugar(int clienteId, Map<Integer, int[]> itensParaLocar) {
         em.getTransaction().begin();
 
         try {
