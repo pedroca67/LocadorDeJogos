@@ -43,16 +43,20 @@ public class Locacao implements EntidadeBase {
     // Dentro da classe org.locadora.modelo.Locacao
 
 // Na classe Locacao.java
+// Em org/locadora/modelo/Locacao.java
+
+    // ...
     public BigDecimal getValorTotal() {
         return itens.stream()
                 .map(item -> {
                     BigDecimal precoDiario = item.getJogoPlataforma().getPrecoDiario();
                     BigDecimal dias = new BigDecimal(item.getDias());
-                    BigDecimal quantidade = new BigDecimal(item.getQuantidade()); // Use a nova variável
-                    return precoDiario.multiply(dias).multiply(quantidade); // Multiplique pela quantidade
+                    BigDecimal quantidade = new BigDecimal(item.getQuantidade()); // Correto se o campo existir
+                    return precoDiario.multiply(dias).multiply(quantidade);
                 })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+// ...
 
     // --- equals() e hashCode() ---
     @Override

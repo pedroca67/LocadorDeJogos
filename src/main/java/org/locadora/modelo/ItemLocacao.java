@@ -32,6 +32,9 @@ public class ItemLocacao implements EntidadeBase {
     public JogoPlataforma getJogoPlataforma() { return jogoPlataforma; }
     public void setJogoPlataforma(JogoPlataforma jogoPlataforma) { this.jogoPlataforma = jogoPlataforma; }
 
+    public Integer getQuantidade() { return quantidade; }
+    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+
 
     // --- equals() e hashCode() ---
     @Override

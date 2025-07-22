@@ -1,13 +1,11 @@
 package org.locadora.service;
 
 import jakarta.persistence.EntityManager;
-
 import org.locadora.modelo.*;
 import org.locadora.repositorio.*;
 
 import java.time.LocalDate;
 import java.util.*;
-
 
 public class LocacaoService {
 
@@ -23,6 +21,7 @@ public class LocacaoService {
         this.jogoPlataformaRepository = new JogoPlataformaRepository(em);
     }
 
+    // A assinatura do método está correta, o problema estava no loop abaixo.
     public Locacao alugar(int clienteId, Map<Integer, int[]> itensParaLocar) {
         em.getTransaction().begin();
 
@@ -35,9 +34,13 @@ public class LocacaoService {
             Locacao novaLocacao = new Locacao(LocalDate.now(), cliente);
             List<ItemLocacao> itensDaLocacao = new ArrayList<>();
 
-            for (Map.Entry<Integer, Integer> item : itensParaLocar.entrySet()) {
+            // ===== CORREÇÃO APLICADA AQUI =====
+            // O loop agora processa um Map.Entry<Integer, int[]> conforme a assinatura do método.
+            for (Map.Entry<Integer, int[]> item : itensParaLocar.entrySet()) {
                 Integer jogoPlataformaId = item.getKey();
-                Integer dias = item.getValue();
+                int[] valores = item.getValue(); // Pega o array [dias, quantidade]
+                int dias = valores[0];           // Primeiro elemento é 'dias'
+                int quantidade = valores[1];     // Segundo elemento é 'quantidade'
 
                 JogoPlataforma jogoPlataforma = jogoPlataformaRepository.buscaPorId(jogoPlataformaId);
                 if (jogoPlataforma == null) {
@@ -47,6 +50,7 @@ public class LocacaoService {
                 ItemLocacao novoItem = new ItemLocacao();
                 novoItem.setJogoPlataforma(jogoPlataforma);
                 novoItem.setDias(dias);
+                novoItem.setQuantidade(quantidade); // Adiciona a quantidade ao item de locação
                 novoItem.setLocacao(novaLocacao);
                 itensDaLocacao.add(novoItem);
             }
@@ -58,11 +62,9 @@ public class LocacaoService {
             return novaLocacao;
 
         } catch (Exception e) {
-            // Se qualquer erro ocorrer, desfazemos a transação para não deixar dados inconsistentes
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            // relança a exceção para a camada superior (Main) saber que algo deu errado
             throw new RuntimeException("Erro ao processar a locação: " + e.getMessage(), e);
         }
     }
