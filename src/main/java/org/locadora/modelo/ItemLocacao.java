@@ -11,21 +11,25 @@ public class ItemLocacao implements EntidadeBase {
     private Integer id;
 
     private Integer dias;
-    private Integer quantidade;
 
     @ManyToOne
     @JoinColumn(name = "locacao_id")
     private Locacao locacao;
+
+    @ManyToOne
+    @JoinColumn(name = "jogoplataforma_id")
+    private JogoPlataforma jogoPlataforma; // Adicionado para associar o jogo e a plataforma
 
     // --- Getters e Setters ---
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public Integer getDias() { return dias; }
     public void setDias(Integer dias) { this.dias = dias; }
-    public Integer getQuantidade() { return quantidade; }
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
     public Locacao getLocacao() { return locacao; }
     public void setLocacao(Locacao locacao) { this.locacao = locacao; }
+    public JogoPlataforma getJogoPlataforma() { return jogoPlataforma; }
+    public void setJogoPlataforma(JogoPlataforma jogoPlataforma) { this.jogoPlataforma = jogoPlataforma; }
+
 
     // --- equals() e hashCode() ---
     @Override
