@@ -3,6 +3,7 @@ package org.locadora.testes;
 import jakarta.persistence.*;
 import org.locadora.modelo.*;
 import org.locadora.repositorio.*;
+
 import java.math.*;
 import java.time.*;
 import java.util.*;
@@ -64,10 +65,18 @@ public class LocacaoMain {
                     System.out.println((i + 1) + ". " + jp.getPlataforma().getNome() + " - Preço diário: R$ " + jp.getPrecoDiario());
                 }
 
+                // Dentro do while (adicionarMaisJogos)
+
                 System.out.print("Escolha o número da plataforma: ");
                 int escolhaPlataforma = Integer.parseInt(scanner.nextLine()) - 1;
-                JogoPlataforma jogoPlataformaSelecionada = plataformasDisponiveis.get(escolhaPlataforma);
 
+// Adicionar esta verificação
+                if (escolhaPlataforma < 0 || escolhaPlataforma >= plataformasDisponiveis.size()) {
+                    System.out.println("Opção inválida. Tente novamente.");
+                    continue; // Volta para o início do loop
+                }
+
+                JogoPlataforma jogoPlataformaSelecionada = plataformasDisponiveis.get(escolhaPlataforma);
                 // 5. Definir a quantidade de dias
                 System.out.print("Por quantos dias deseja alugar este jogo? ");
                 int dias = Integer.parseInt(scanner.nextLine());
@@ -97,7 +106,7 @@ public class LocacaoMain {
             System.out.println("Cliente: " + novaLocacao.getCliente().getNome());
             System.out.println("Data: " + novaLocacao.getData());
             System.out.println("Itens alugados:");
-            for(ItemLocacao item : novaLocacao.getItens()) {
+            for (ItemLocacao item : novaLocacao.getItens()) {
                 System.out.println("- Jogo: " + item.getJogoPlataforma().getJogo().getTitulo() +
                         " (" + item.getJogoPlataforma().getPlataforma().getNome() + ")" +
                         " por " + item.getDias() + " dias.");

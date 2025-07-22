@@ -1,6 +1,8 @@
 package org.locadora.modelo;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +39,20 @@ public class Locacao implements EntidadeBase {
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
     public List<ItemLocacao> getItens() { return itens; }
     public void setItens(List<ItemLocacao> itens) { this.itens = itens; }
+
+    // Dentro da classe org.locadora.modelo.Locacao
+
+    public BigDecimal getValorTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        if (getItens() != null) {
+            for (ItemLocacao item : getItens()) {
+                BigDecimal dias = new BigDecimal(item.getDias());
+                BigDecimal precoDiario = item.getJogoPlataforma().getPrecoDiario();
+                total = total.add(dias.multiply(precoDiario));
+            }
+        }
+        return total;
+    }
 
     // --- equals() e hashCode() ---
     @Override
