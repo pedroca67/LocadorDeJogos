@@ -1,17 +1,13 @@
 package org.locadora.service;
 
 import jakarta.persistence.EntityManager;
-import org.locadora.modelo.Cliente;
-import org.locadora.modelo.ItemLocacao;
-import org.locadora.modelo.JogoPlataforma;
-import org.locadora.modelo.Locacao;
-import org.locadora.repositorio.ClienteRepository;
-import org.locadora.repositorio.JogoPlataformaRepository;
-import org.locadora.repositorio.LocacaoRepository;
+
+import org.locadora.modelo.*;
+import org.locadora.repositorio.*;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 public class LocacaoService {
 
