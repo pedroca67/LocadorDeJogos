@@ -29,7 +29,8 @@ public class LocacaoMain {
                 return;
             }
 
-            Map<Integer, Integer> itensParaLocar = new HashMap<>();
+            // ALTERAÇÃO 1: O Map agora guarda um array de inteiros [dias, quantidade]
+            Map<Integer, int[]> itensParaLocar = new HashMap<>();
             boolean adicionarMaisJogos = true;
 
             while (adicionarMaisJogos) {
@@ -76,8 +77,20 @@ public class LocacaoMain {
                     System.err.println("Quantidade de dias inválida.");
                     continue;
                 }
+                
+                // ALTERAÇÃO 2: Pergunta a quantidade
+                System.out.print("Quantas cópias deseja alugar? ");
+                int quantidade;
+                try {
+                    quantidade = Integer.parseInt(scanner.nextLine().trim());
+                    if (quantidade <= 0) throw new NumberFormatException();
+                } catch (NumberFormatException e) {
+                    System.err.println("Quantidade inválida.");
+                    continue;
+                }
 
-                itensParaLocar.put(jogoPlataformaId, dias);
+                // ALTERAÇÃO 3: Adiciona o array com [dias, quantidade] ao map
+                itensParaLocar.put(jogoPlataformaId, new int[]{dias, quantidade});
 
                 System.out.print("Deseja adicionar outro jogo? (S/N): ");
                 adicionarMaisJogos = scanner.nextLine().trim().equalsIgnoreCase("S");
@@ -88,6 +101,7 @@ public class LocacaoMain {
                 return;
             }
 
+            // ALTERAÇÃO 4: A chamada ao serviço agora passa o novo Map
             Locacao locacaoRealizada = locacaoService.alugar(clienteId, itensParaLocar);
             System.out.println("\n--- Locação Realizada com Sucesso! ---");
             System.out.println("ID da Locação: " + locacaoRealizada.getId());
