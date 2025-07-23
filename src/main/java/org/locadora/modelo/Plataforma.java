@@ -18,7 +18,6 @@ public class Plataforma implements EntidadeBase {
         this.nome = nome;
     }
 
-    // --- Getters e Setters ---
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public String getNome() { return nome; }
