@@ -30,7 +30,6 @@ public class JogoPlataforma implements EntidadeBase {
         this.precoDiario = precoDiario;
     }
 
-    // --- Getters e Setters ---
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public Jogo getJogo() { return jogo; }
