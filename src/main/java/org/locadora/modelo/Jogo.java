@@ -22,7 +22,6 @@ public class Jogo implements EntidadeBase {
         this.titulo = titulo;
     }
 
-    // --- Getters e Setters ---
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public String getTitulo() { return titulo; }
