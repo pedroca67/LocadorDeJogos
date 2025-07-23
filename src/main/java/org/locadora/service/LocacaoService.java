@@ -9,19 +9,19 @@ import java.util.*;
 
 public class LocacaoService {
 
-    private final EntityManager em;
+    private final EntityManager entidade;
     private final LocacaoRepository locacaoRepository;
     private final ClienteRepository clienteRepository;
     private final JogoPlataformaRepository jogoPlataformaRepository;
 
-    public LocacaoService(EntityManager em) {
-        this.em = em;
-        this.locacaoRepository = new LocacaoRepository(em);
-        this.clienteRepository = new ClienteRepository(em);
-        this.jogoPlataformaRepository = new JogoPlataformaRepository(em);
+    public LocacaoService(EntityManager entidade) {
+        this.entidade = entidade;
+        this.locacaoRepository = new LocacaoRepository(entidade);
+        this.clienteRepository = new ClienteRepository(entidade);
+        this.jogoPlataformaRepository = new JogoPlataformaRepository(entidade);
     }
     public Locacao alugar(int clienteId, Map<Integer, int[]> itensParaLocar) {
-        em.getTransaction().begin();
+        entidade.getTransaction().begin();
 
         try {
             Cliente cliente = clienteRepository.buscaPorId(clienteId);
@@ -54,12 +54,12 @@ public class LocacaoService {
             novaLocacao.setItens(itensDaLocacao);
             locacaoRepository.salvaOuAtualiza(novaLocacao);
 
-            em.getTransaction().commit();
+            entidade.getTransaction().commit();
             return novaLocacao;
 
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
+            if (entidade.getTransaction().isActive()) {
+                entidade.getTransaction().rollback();
             }
             throw new RuntimeException("Erro ao processar a locação: " + e.getMessage(), e);
         }
