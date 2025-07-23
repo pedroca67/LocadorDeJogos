@@ -30,7 +30,6 @@ public class Locacao implements EntidadeBase {
         this.cliente = cliente;
     }
 
-    // --- Getters e Setters ---
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public LocalDate getData() { return data; }
@@ -40,23 +39,16 @@ public class Locacao implements EntidadeBase {
     public List<ItemLocacao> getItens() { return itens; }
     public void setItens(List<ItemLocacao> itens) { this.itens = itens; }
 
-    // Dentro da classe org.locadora.modelo.Locacao
-
-// Na classe Locacao.java
-// Em org/locadora/modelo/Locacao.java
-
-    // ...
     public BigDecimal getValorTotal() {
         return itens.stream()
                 .map(item -> {
                     BigDecimal precoDiario = item.getJogoPlataforma().getPrecoDiario();
                     BigDecimal dias = new BigDecimal(item.getDias());
-                    BigDecimal quantidade = new BigDecimal(item.getQuantidade()); // Correto se o campo existir
+                    BigDecimal quantidade = new BigDecimal(item.getQuantidade());
                     return precoDiario.multiply(dias).multiply(quantidade);
                 })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
-// ...
 
     // --- equals() e hashCode() ---
     @Override
