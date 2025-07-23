@@ -20,8 +20,6 @@ public class LocacaoService {
         this.clienteRepository = new ClienteRepository(em);
         this.jogoPlataformaRepository = new JogoPlataformaRepository(em);
     }
-
-    // A assinatura do método está correta, o problema estava no loop abaixo.
     public Locacao alugar(int clienteId, Map<Integer, int[]> itensParaLocar) {
         em.getTransaction().begin();
 
@@ -34,8 +32,6 @@ public class LocacaoService {
             Locacao novaLocacao = new Locacao(LocalDate.now(), cliente);
             List<ItemLocacao> itensDaLocacao = new ArrayList<>();
 
-            // ===== CORREÇÃO APLICADA AQUI =====
-            // O loop agora processa um Map.Entry<Integer, int[]> conforme a assinatura do método.
             for (Map.Entry<Integer, int[]> item : itensParaLocar.entrySet()) {
                 Integer jogoPlataformaId = item.getKey();
                 int[] valores = item.getValue(); // Pega o array [dias, quantidade]

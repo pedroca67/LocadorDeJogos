@@ -13,18 +13,18 @@ import java.util.List;
 
 public class JogoService {
 
-    private final EntityManager em;
+    private final EntityManager entidade;
     private final JogoRepository jogoRepository;
     private final PlataformaRepository plataformaRepository;
 
-    public JogoService(EntityManager em) {
-        this.em = em;
-        this.jogoRepository = new JogoRepository(em);
-        this.plataformaRepository = new PlataformaRepository(em);
+    public JogoService(EntityManager entidade) {
+        this.entidade = entidade;
+        this.jogoRepository = new JogoRepository(entidade);
+        this.plataformaRepository = new PlataformaRepository(entidade);
     }
 
     public Jogo salvar(String titulo, List<String> nomesPlataformas, BigDecimal precoDiario) {
-        em.getTransaction().begin();
+        entidade.getTransaction().begin();
 
         try {
             Jogo novoJogo = new Jogo(titulo);
@@ -37,26 +37,23 @@ public class JogoService {
                 }
 
                 JogoPlataforma jogoPlataforma = new JogoPlataforma();
-                jogoPlataforma.setJogo(novoJogo); // Associa a JogoPlataforma ao novo Jogo
+                jogoPlataforma.setJogo(novoJogo);
                 jogoPlataforma.setPlataforma(plataforma);
                 jogoPlataforma.setPrecoDiario(precoDiario);
                 jogoPlataformas.add(jogoPlataforma);
             }
-
-            // Define a lista completa de plataformas no jogo
+            
             novoJogo.setPlataformas(jogoPlataformas);
-
-            // Persiste o Jogo, e o Cascade.ALL cuidará de persistir os JogoPlataforma
+            
             jogoRepository.salvaOuAtualiza(novoJogo);
 
-            em.getTransaction().commit();
+            entidade.getTransaction().commit();
             return novoJogo;
 
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
+            if (entidade.getTransaction().isActive()) {
+                entidade.getTransaction().rollback();
             }
-            // Lança a exceção para a camada que chamou o serviço saber do erro
             throw new RuntimeException("Falha ao salvar o jogo: " + e.getMessage(), e);
         }
     }

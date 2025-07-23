@@ -15,8 +15,6 @@ public class ClienteService {
     }
 
     public Cliente salvar(String nome, String email, String telefone, String senha) {
-        // Validações de negócio podem ser adicionadas aqui no futuro
-        // Ex: if (clienteRepository.findByEmail(email) != null) { throw new Exception(...) }
 
         em.getTransaction().begin();
 
