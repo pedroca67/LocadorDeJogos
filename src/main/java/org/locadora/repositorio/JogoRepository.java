@@ -22,10 +22,6 @@ public class JogoRepository {
         }
     }
 
-    public Jogo buscaPorId(Integer id) {
-        return manager.find(Jogo.class, id);
-    }
-
     public List<Jogo> buscaPorTitulo(String titulo) {
         return manager.createQuery("SELECT j FROM Jogo j WHERE UPPER(j.titulo) LIKE :titulo", Jogo.class)
                 .setParameter("titulo", "%" + titulo.toUpperCase() + "%")

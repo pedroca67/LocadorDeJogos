@@ -17,11 +17,4 @@ public class JogoPlataformaRepository {
         return dao.buscaPorId(JogoPlataforma.class, id);
     }
 
-    public JogoPlataforma salvaOuAtualiza(JogoPlataforma jogoPlataforma) {
-        return dao.salvaOuAtualiza(jogoPlataforma);
-    }
-
-    public void remove(JogoPlataforma jogoPlataforma) {
-        dao.remove(jogoPlataforma);
-    }
 }

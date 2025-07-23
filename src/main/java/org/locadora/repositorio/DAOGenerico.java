@@ -5,7 +5,7 @@ import org.locadora.modelo.EntidadeBase;
 
 import java.util.Objects;
 
-class DAOGenerico<T extends EntidadeBase> {
+class DAOGenerico<Entidade extends EntidadeBase> {
 
     private final EntityManager manager;
 
@@ -13,11 +13,11 @@ class DAOGenerico<T extends EntidadeBase> {
         this.manager = manager;
     }
 
-    T buscaPorId(Class<T> clazz, Integer id) {
+    Entidade buscaPorId(Class<Entidade> clazz, Integer id) {
         return manager.find(clazz, id);
     }
 
-    T salvaOuAtualiza(T t) {
+    Entidade salvaOuAtualiza(Entidade t) {
         // Se o ID do objeto é nulo, significa que ele é novo e deve ser inserido.
         if(Objects.isNull(t.getId())) {
             this.manager.persist(t);
@@ -26,12 +26,5 @@ class DAOGenerico<T extends EntidadeBase> {
             t = this.manager.merge(t);
         }
         return t;
-    }
-
-    void remove(T t) {
-        // Remove o objeto do banco de dados.
-        manager.remove(t);
-        // O flush garante que a operação de remoção seja sincronizada com o banco imediatamente.
-        manager.flush();
     }
 }

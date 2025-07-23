@@ -31,8 +31,4 @@ public class ClienteRepository {
         return daoGenerico.salvaOuAtualiza(cliente);
     }
 
-    // Método para remover um cliente
-    public void remove(Cliente cliente) {
-        daoGenerico.remove(cliente);
-    }
 }
