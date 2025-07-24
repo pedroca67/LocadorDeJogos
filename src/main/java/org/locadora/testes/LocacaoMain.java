@@ -12,7 +12,7 @@ public class LocacaoMain {
     public static void main(String[] args) {
         EntityManagerFactory a2 = Persistence.createEntityManagerFactory("LocadorDeJogos");
         EntityManager a1 = a2.createEntityManager();
-        Scanner scanner = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
 
         JogoRepository jogoRepo = new JogoRepository(a1);
         LocacaoService locacaoService = new LocacaoService(a1);
@@ -22,7 +22,7 @@ public class LocacaoMain {
             System.out.print("Digite o ID do cliente: ");
             int clienteId;
             try {
-                clienteId = Integer.parseInt(scanner.nextLine().trim());
+                clienteId = Integer.parseInt(s.nextLine().trim());
                 if (clienteId <= 0) throw new NumberFormatException();
             } catch (NumberFormatException e) {
                 System.err.println("ID do cliente inválido.");
@@ -35,7 +35,7 @@ public class LocacaoMain {
 
             while (adicionarMaisJogos) {
                 System.out.print("\nDigite o título do jogo a ser alugado: ");
-                String tituloJogo = scanner.nextLine().trim();
+                String tituloJogo = s.nextLine().trim();
 
                 List<Jogo> jogosEncontrados = jogoRepo.buscaPorTitulo(tituloJogo);
                 if (jogosEncontrados.isEmpty()) {
@@ -52,7 +52,7 @@ public class LocacaoMain {
                 System.out.print("Escolha o ID da plataforma: ");
                 int jogoPlataformaId;
                 try {
-                    jogoPlataformaId = Integer.parseInt(scanner.nextLine().trim());
+                    jogoPlataformaId = Integer.parseInt(s.nextLine().trim());
                 } catch (NumberFormatException e) {
                     System.err.println("ID inválido.");
                     continue;
@@ -71,7 +71,7 @@ public class LocacaoMain {
                 System.out.print("Por quantos dias deseja alugar? ");
                 int dias;
                 try {
-                    dias = Integer.parseInt(scanner.nextLine().trim());
+                    dias = Integer.parseInt(s.nextLine().trim());
                     if (dias <= 0) throw new NumberFormatException();
                 } catch (NumberFormatException e) {
                     System.err.println("Quantidade de dias inválida.");
@@ -82,7 +82,7 @@ public class LocacaoMain {
                 System.out.print("Quantas cópias deseja alugar? ");
                 int quantidade;
                 try {
-                    quantidade = Integer.parseInt(scanner.nextLine().trim());
+                    quantidade = Integer.parseInt(s.nextLine().trim());
                     if (quantidade <= 0) throw new NumberFormatException();
                 } catch (NumberFormatException e) {
                     System.err.println("Quantidade inválida.");
@@ -93,7 +93,7 @@ public class LocacaoMain {
                 itensParaLocar.put(jogoPlataformaId, new int[]{dias, quantidade});
 
                 System.out.print("Deseja adicionar outro jogo? (S/N): ");
-                adicionarMaisJogos = scanner.nextLine().trim().equalsIgnoreCase("S");
+                adicionarMaisJogos = s.nextLine().trim().equalsIgnoreCase("S");
             }
 
             if (itensParaLocar.isEmpty()) {
@@ -112,7 +112,7 @@ public class LocacaoMain {
         } finally {
             a1.close();
             a2.close();
-            scanner.close();
+            s.close();
         }
     }
 }
