@@ -8,36 +8,36 @@ import java.util.*;
 
 public class ClienteMain {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LocadorDeJogos");
-        EntityManager em = emf.createEntityManager();
-        Scanner sc = new Scanner(System.in);
-        ClienteService clienteService = new ClienteService(em);
+        EntityManagerFactory a1 = Persistence.createEntityManagerFactory("LocadorDeJogos");
+        EntityManager a2 = a1.createEntityManager();
+        Scanner s = new Scanner(System.in);
+        ClienteService clienteService = new ClienteService(a2);
 
         System.out.println("--- Cadastro de Novo Cliente ---");
 
         System.out.print("Nome: ");
-        String nome = sc.nextLine().trim();
+        String nome = s.nextLine().trim();
         if (nome.isEmpty()) {
             System.err.println("Erro: Nome não pode estar vazio.");
             return;
         }
 
         System.out.print("Email: ");
-        String email = sc.nextLine().trim();
+        String email = s.nextLine().trim();
         if (email.isEmpty() || !email.contains("@")) {
             System.err.println("Erro: Email inválido.");
             return;
         }
 
         System.out.print("Telefone: ");
-        String telefone = sc.nextLine().trim();
+        String telefone = s.nextLine().trim();
         if (telefone.isEmpty()) {
             System.err.println("Erro: Telefone não pode estar vazio.");
             return;
         }
 
         System.out.print("Senha: ");
-        String senha = sc.nextLine().trim();
+        String senha = s.nextLine().trim();
         if (senha.length() < 4) {
             System.err.println("Erro: Senha deve ter pelo menos 4 caracteres.");
             return;
@@ -49,9 +49,9 @@ public class ClienteMain {
         } catch (Exception e) {
             System.err.println("Erro ao cadastrar cliente: " + e.getMessage());
         } finally {
-            em.close();
-            emf.close();
-            sc.close();
+            a2.close();
+            a1.close();
+            s.close();
         }
     }
 }
