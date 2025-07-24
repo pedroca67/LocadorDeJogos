@@ -11,11 +11,11 @@ import java.util.stream.*;
 public class LocacaoMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LocadorDeJogos");
-        EntityManager em = emf.createEntityManager();
+        EntityManager c1 = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
 
-        JogoRepository jogoRepo = new JogoRepository(em);
-        LocacaoService locacaoService = new LocacaoService(em);
+        JogoRepository jogoRepo = new JogoRepository(c1);
+        LocacaoService locacaoService = new LocacaoService(c1);
 
         try {
             System.out.println("--- Realizar Nova Locação ---");
@@ -110,7 +110,7 @@ public class LocacaoMain {
         } catch (Exception e) {
             System.err.println("ERRO: " + e.getMessage());
         } finally {
-            em.close();
+            c1.close();
             emf.close();
             scanner.close();
         }
