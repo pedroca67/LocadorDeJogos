@@ -31,9 +31,9 @@ public class LocacaoMain {
 
             // ALTERAÇÃO 1: O Map agora guarda um array de inteiros [dias, quantidade]
             Map<Integer, int[]> itensParaLocar = new HashMap<>();
-            boolean adicionarMaisJogos = true;
+            boolean adicionarJogo = true;
 
-            while (adicionarMaisJogos) {
+            while (adicionarJogo) {
                 System.out.print("\nDigite o título do jogo a ser alugado: ");
                 String tituloJogo = s.nextLine().trim();
 
@@ -50,11 +50,11 @@ public class LocacaoMain {
                 }
 
                 System.out.print("Escolha o ID da plataforma: ");
-                int jogoPlataformaId;
+                int idPlataforma;
                 try {
-                    jogoPlataformaId = Integer.parseInt(s.nextLine().trim());
+                    idPlataforma = Integer.parseInt(s.nextLine().trim());
                 } catch (NumberFormatException e) {
-                    System.err.println("ID inválido.");
+                    System.err.println("ID invalido.");
                     continue;
                 }
 
@@ -63,8 +63,8 @@ public class LocacaoMain {
                         .map(JogoPlataforma::getId)
                         .collect(Collectors.toList());
 
-                if (!idsValidos.contains(jogoPlataformaId)) {
-                    System.err.println("ERRO: ID de plataforma inválido! Por favor, tente novamente.");
+                if (!idsValidos.contains(idPlataforma)) {
+                    System.err.println("ERRO: ID de plataforma invalido! Por favor, tente novamente.");
                     continue;
                 }
 
@@ -90,10 +90,10 @@ public class LocacaoMain {
                 }
 
                 // ALTERAÇÃO 3: Adiciona o array com [dias, quantidade] ao map
-                itensParaLocar.put(jogoPlataformaId, new int[]{dias, quantidade});
+                itensParaLocar.put(idPlataforma, new int[]{dias, quantidade});
 
                 System.out.print("Deseja adicionar outro jogo? (S/N): ");
-                adicionarMaisJogos = s.nextLine().trim().equalsIgnoreCase("S");
+                adicionarJogo = s.nextLine().trim().equalsIgnoreCase("S");
             }
 
             if (itensParaLocar.isEmpty()) {
