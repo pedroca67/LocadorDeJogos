@@ -1,8 +1,7 @@
 package org.locadora.repositorio;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
-import org.locadora.modelo.Plataforma;
+import jakarta.persistence.*;
+import org.locadora.modelo.*;
 
 public class PlataformaRepository {
 
