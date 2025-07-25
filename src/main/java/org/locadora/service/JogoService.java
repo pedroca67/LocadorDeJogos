@@ -8,7 +8,6 @@ import org.locadora.repositorio.JogoRepository;
 import org.locadora.repositorio.PlataformaRepository;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class JogoService {
@@ -28,7 +27,6 @@ public class JogoService {
 
         try {
             Jogo novoJogo = new Jogo(titulo);
-            List<JogoPlataforma> jogoPlataformas = new ArrayList<>();
 
             for (String nomePlataforma : nomesPlataformas) {
                 Plataforma plataforma = plataformaRepo.buscaPorNome(nomePlataforma);
@@ -37,14 +35,12 @@ public class JogoService {
                 }
 
                 JogoPlataforma jogoPlataforma = new JogoPlataforma();
-                jogoPlataforma.setJogo(novoJogo);
                 jogoPlataforma.setPlataforma(plataforma);
                 jogoPlataforma.setPrecoDiario(precoDiario);
-                jogoPlataformas.add(jogoPlataforma);
+
+                novoJogo.adicionarPlataforma(jogoPlataforma);
             }
-            
-            novoJogo.setPlataformas(jogoPlataformas);
-            
+
             jogoRepo.salva(novoJogo);
 
             e1.getTransaction().commit();

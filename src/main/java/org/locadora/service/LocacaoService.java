@@ -30,13 +30,12 @@ public class LocacaoService {
             }
 
             Locacao novaLocacao = new Locacao(LocalDate.now(), cliente);
-            List<ItemLocacao> itensDaLocacao = new ArrayList<>();
 
             for (Map.Entry<Integer, int[]> item : itensParaLocar.entrySet()) {
                 Integer idDeJogoPlataforma = item.getKey();
-                int[] valores = item.getValue(); // Pega o array [dias, quantidade]
-                int dias = valores[0];           // Primeiro elemento é 'dias'
-                int quantidade = valores[1];     // Segundo elemento é 'quantidade'
+                int[] valores = item.getValue();
+                int dias = valores[0];
+                int quantidade = valores[1];
 
                 JogoPlataforma jogoPlataforma = jogoPlataformaRepo.buscaPorId(idDeJogoPlataforma);
                 if (jogoPlataforma == null) {
@@ -47,12 +46,11 @@ public class LocacaoService {
                 novo.setJogoPlataforma(jogoPlataforma);
                 novo.setDias(dias);
                 novo.setQuantidade(quantidade);
-                novo.setLocacao(novaLocacao);
 
-                itensDaLocacao.add(novo);
+                novaLocacao.adicionarItem(novo);
+
             }
 
-            novaLocacao.setItens(itensDaLocacao);
             locacaoRepo.salvar(novaLocacao);
 
             e1.getTransaction().commit();

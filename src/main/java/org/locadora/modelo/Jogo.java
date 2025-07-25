@@ -26,7 +26,10 @@ public class Jogo implements EntidadeBase {
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public List<JogoPlataforma> getPlataformas() { return plataformas; }
-    public void setPlataformas(List<JogoPlataforma> plataformas) { this.plataformas = plataformas; }
+    public void adicionarPlataforma(JogoPlataforma jogoPlataforma) {
+        this.plataformas.add(jogoPlataforma);
+        jogoPlataforma.setJogo(this); // Mantém a consistência
+    }
 
     // --- equals() e hashCode() ---
     @Override

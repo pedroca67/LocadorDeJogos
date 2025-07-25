@@ -35,10 +35,15 @@ public class Console implements EntidadeBase {
     public BigDecimal getPrecoPorHora() { return precoPorHora; }
     public void setPrecoPorHora(BigDecimal precoPorHora) { this.precoPorHora = precoPorHora; }
     public List<Acessorio> getAcessorios() { return acessorios; }
-    public void setAcessorios(List<Acessorio> acessorios) { this.acessorios = acessorios; }
     public List<UtilizacaoDoConsolePeloCliente> getUtilizacoes() { return utilizacoes; }
-    public void setUtilizacoes(List<UtilizacaoDoConsolePeloCliente> utilizacoes) { this.utilizacoes = utilizacoes; }
-
+    public void adicionarAcessorio(Acessorio acessorio) {
+        this.acessorios.add(acessorio);
+        acessorio.setConsole(this);
+    }
+    public void adicionarUtilizacao(UtilizacaoDoConsolePeloCliente utilizacao) {
+        this.utilizacoes.add(utilizacao);
+        utilizacao.setConsole(this);
+    }
     // --- equals() e hashCode() ---
     @Override
     public boolean equals(Object o) {

@@ -1,6 +1,7 @@
 package org.locadora.modelo;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,10 +18,10 @@ public class Cliente implements EntidadeBase {
     private String senha;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Locacao> locacoes;
+    private List<Locacao> locacoes = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UtilizacaoDoConsolePeloCliente> utilizacoes;
+    private List<UtilizacaoDoConsolePeloCliente> utilizacoes = new ArrayList<>();
 
     public Cliente() {}
 
@@ -31,7 +32,6 @@ public class Cliente implements EntidadeBase {
         this.senha = senha;
     }
 
-    // --- Getters e Setters ---
     public Integer getId() { return id; }
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
@@ -42,11 +42,18 @@ public class Cliente implements EntidadeBase {
     public String getSenha() { return senha; }
     public void setSenha(String senha) { this.senha = senha; }
     public List<Locacao> getLocacoes() { return locacoes; }
-    public void setLocacoes(List<Locacao> locacoes) { this.locacoes = locacoes; }
     public List<UtilizacaoDoConsolePeloCliente> getUtilizacoes() { return utilizacoes; }
-    public void setUtilizacoes(List<UtilizacaoDoConsolePeloCliente> utilizacoes) { this.utilizacoes = utilizacoes; }
 
-    // --- equals() e hashCode() ---
+    public void adicionarLocacao(Locacao locacao) {
+        this.locacoes.add(locacao);
+        locacao.setCliente(this);
+    }
+
+    public void adicionarUtilizacao(UtilizacaoDoConsolePeloCliente utilizacao) {
+        this.utilizacoes.add(utilizacao);
+        utilizacao.setCliente(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

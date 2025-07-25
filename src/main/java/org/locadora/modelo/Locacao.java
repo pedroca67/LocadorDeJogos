@@ -35,8 +35,15 @@ public class Locacao implements EntidadeBase {
     public void setData(LocalDate data) { this.data = data; }
     public Cliente getCliente() { return cliente; }
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
-    public List<ItemLocacao> getItens() { return itens; }
-    public void setItens(List<ItemLocacao> itens) { this.itens = itens; }
+    public void adicionarItem(ItemLocacao item) {
+        this.itens.add(item);
+        item.setLocacao(this); // Essencial para manter o relacionamento bidirecional consistente!
+    }
+
+    // O getter pode continuar retornando a lista (ou a versão não modificável)
+    public List<ItemLocacao> getItens() {
+        return this.itens; // Ou Collections.unmodifiableList(this.itens);
+    }
 
     public BigDecimal getValorTotal() {
         return itens.stream()
