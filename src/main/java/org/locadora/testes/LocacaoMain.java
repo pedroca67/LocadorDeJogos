@@ -64,7 +64,7 @@ public class LocacaoMain {
                         .collect(Collectors.toList());
 
                 if (!idsValidos.contains(idPlataforma)) {
-                    System.err.println("ERRO: ID de plataforma invalido! Por favor, tente novamente.");
+                    System.err.println("ID de plataforma invalido! Por favor, tente novamente.");
                     continue;
                 }
 
@@ -108,7 +108,7 @@ public class LocacaoMain {
             System.out.println("Cliente: " + locacaoRealizada.getCliente().getNome());
 
         } catch (Exception e) {
-            System.err.println("ERRO: " + e.getMessage());
+            System.err.println("Problema: " + e.getMessage());
         } finally {
             a1.close();
             a2.close();

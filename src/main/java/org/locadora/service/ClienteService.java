@@ -6,17 +6,17 @@ import org.locadora.repositorio.ClienteRepository;
 
 public class ClienteService {
 
-    private final EntityManager em;
-    private final ClienteRepository clienteRepository;
+    private final EntityManager e1;
+    private final ClienteRepository clienteR;
 
-    public ClienteService(EntityManager em) {
-        this.em = em;
-        this.clienteRepository = new ClienteRepository(em);
+    public ClienteService(EntityManager e1) {
+        this.e1 = e1;
+        this.clienteR = new ClienteRepository(e1);
     }
 
     public Cliente salvar(String nome, String email, String telefone, String senha) {
 
-        em.getTransaction().begin();
+        e1.getTransaction().begin();
 
         Cliente novoCliente = new Cliente();
         novoCliente.setNome(nome);
@@ -24,9 +24,9 @@ public class ClienteService {
         novoCliente.setTelefone(telefone);
         novoCliente.setSenha(senha);
 
-        clienteRepository.salvaOuAtualiza(novoCliente);
+        clienteR.salvaOuAtualiza(novoCliente);
 
-        em.getTransaction().commit();
+        e1.getTransaction().commit();
         return novoCliente;
     }
 }

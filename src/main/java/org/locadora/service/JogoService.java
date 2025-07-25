@@ -13,25 +13,25 @@ import java.util.List;
 
 public class JogoService {
 
-    private final EntityManager entidade;
-    private final JogoRepository jogoRepository;
-    private final PlataformaRepository plataformaRepository;
+    private final EntityManager e1;
+    private final JogoRepository jogoRepo;
+    private final PlataformaRepository plataformaRepo;
 
-    public JogoService(EntityManager entidade) {
-        this.entidade = entidade;
-        this.jogoRepository = new JogoRepository(entidade);
-        this.plataformaRepository = new PlataformaRepository(entidade);
+    public JogoService(EntityManager e1) {
+        this.e1 = e1;
+        this.jogoRepo = new JogoRepository(e1);
+        this.plataformaRepo = new PlataformaRepository(e1);
     }
 
     public Jogo salvar(String titulo, List<String> nomesPlataformas, BigDecimal precoDiario) {
-        entidade.getTransaction().begin();
+        e1.getTransaction().begin();
 
         try {
             Jogo novoJogo = new Jogo(titulo);
             List<JogoPlataforma> jogoPlataformas = new ArrayList<>();
 
             for (String nomePlataforma : nomesPlataformas) {
-                Plataforma plataforma = plataformaRepository.buscaPorNomeExato(nomePlataforma);
+                Plataforma plataforma = plataformaRepo.buscaPorNomeExato(nomePlataforma);
                 if (plataforma == null) {
                     plataforma = new Plataforma(nomePlataforma);
                 }
@@ -45,14 +45,14 @@ public class JogoService {
             
             novoJogo.setPlataformas(jogoPlataformas);
             
-            jogoRepository.salvaOuAtualiza(novoJogo);
+            jogoRepo.salvaOuAtualiza(novoJogo);
 
-            entidade.getTransaction().commit();
+            e1.getTransaction().commit();
             return novoJogo;
 
         } catch (Exception e) {
-            if (entidade.getTransaction().isActive()) {
-                entidade.getTransaction().rollback();
+            if (e1.getTransaction().isActive()) {
+                e1.getTransaction().rollback();
             }
             throw new RuntimeException("Falha ao salvar o jogo: " + e.getMessage(), e);
         }

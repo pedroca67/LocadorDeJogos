@@ -26,7 +26,7 @@ public class JogoMain {
         String plataformasInput = s.nextLine().trim();
         List<String> plataformas = Arrays.asList(plataformasInput.split(","));
         if (plataformas.isEmpty()) {
-            System.err.println("Erro: Pelo menos uma plataforma deve ser informada.");
+            System.err.println("Pelo menos uma plataforma deve ser informada.");
             return;
         }
 
@@ -35,19 +35,19 @@ public class JogoMain {
         try {
             preco = s.nextBigDecimal();
             if (preco.compareTo(BigDecimal.ZERO) <= 0) {
-                System.err.println("Erro: O preço deve ser positivo.");
+                System.err.println("O preço deve ser positivo.");
                 return;
             }
         } catch (InputMismatchException e) {
-            System.err.println("Erro: Preço inválido.");
+            System.err.println("Preço inválido.");
             return;
         }
 
         try {
-            Jogo jogoSalvo = jogoService.salvar(titulo, plataformas, preco);
-            System.out.println("\nJogo cadastrado com sucesso! ID: " + jogoSalvo.getId());
+            Jogo salvarJg = jogoService.salvar(titulo, plataformas, preco);
+            System.out.println("\nJogo cadastrado com sucesso! ID: " + salvarJg.getId());
         }  catch (Exception e) {
-        System.err.println("Erro ao cadastrar jogo:");
+        System.err.println("erro ao cadastrar jogo:");
         e.printStackTrace();
     }
  finally {

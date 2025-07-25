@@ -9,22 +9,22 @@ import java.util.*;
 
 public class LocacaoService {
 
-    private final EntityManager entidade;
-    private final LocacaoRepository locacaoRepository;
-    private final ClienteRepository clienteRepository;
-    private final JogoPlataformaRepository jogoPlataformaRepository;
+    private final EntityManager e1;
+    private final LocacaoRepository locacaoRepo;
+    private final ClienteRepository clienteRepo;
+    private final JogoPlataformaRepository jogoPlataformaRepo;
 
-    public LocacaoService(EntityManager entidade) {
-        this.entidade = entidade;
-        this.locacaoRepository = new LocacaoRepository(entidade);
-        this.clienteRepository = new ClienteRepository(entidade);
-        this.jogoPlataformaRepository = new JogoPlataformaRepository(entidade);
+    public LocacaoService(EntityManager e1) {
+        this.e1 = e1;
+        this.locacaoRepo = new LocacaoRepository(e1);
+        this.clienteRepo = new ClienteRepository(e1);
+        this.jogoPlataformaRepo = new JogoPlataformaRepository(e1);
     }
     public Locacao alugar(int clienteId, Map<Integer, int[]> itensParaLocar) {
-        entidade.getTransaction().begin();
+        e1.getTransaction().begin();
 
         try {
-            Cliente cliente = clienteRepository.buscaPorId(clienteId);
+            Cliente cliente = clienteRepo.buscaPorId(clienteId);
             if (cliente == null) {
                 throw new RuntimeException("Cliente com ID " + clienteId + " não foi encontrado!");
             }
@@ -33,33 +33,34 @@ public class LocacaoService {
             List<ItemLocacao> itensDaLocacao = new ArrayList<>();
 
             for (Map.Entry<Integer, int[]> item : itensParaLocar.entrySet()) {
-                Integer jogoPlataformaId = item.getKey();
+                Integer idDeJogoPlataforma = item.getKey();
                 int[] valores = item.getValue(); // Pega o array [dias, quantidade]
                 int dias = valores[0];           // Primeiro elemento é 'dias'
                 int quantidade = valores[1];     // Segundo elemento é 'quantidade'
 
-                JogoPlataforma jogoPlataforma = jogoPlataformaRepository.buscaPorId(jogoPlataformaId);
+                JogoPlataforma jogoPlataforma = jogoPlataformaRepo.buscaPorId(idDeJogoPlataforma);
                 if (jogoPlataforma == null) {
-                    throw new RuntimeException("Jogo/Plataforma com ID " + jogoPlataformaId + " não encontrado!");
+                    throw new RuntimeException("Jogo/Plataforma com ID " + idDeJogoPlataforma + " não encontrado!");
                 }
 
-                ItemLocacao novoItem = new ItemLocacao();
-                novoItem.setJogoPlataforma(jogoPlataforma);
-                novoItem.setDias(dias);
-                novoItem.setQuantidade(quantidade); // Adiciona a quantidade ao item de locação
-                novoItem.setLocacao(novaLocacao);
-                itensDaLocacao.add(novoItem);
+                ItemLocacao novo = new ItemLocacao();
+                novo.setJogoPlataforma(jogoPlataforma);
+                novo.setDias(dias);
+                novo.setQuantidade(quantidade);
+                novo.setLocacao(novaLocacao);
+
+                itensDaLocacao.add(novo);
             }
 
             novaLocacao.setItens(itensDaLocacao);
-            locacaoRepository.salvaOuAtualiza(novaLocacao);
+            locacaoRepo.salvaOuAtualiza(novaLocacao);
 
-            entidade.getTransaction().commit();
+            e1.getTransaction().commit();
             return novaLocacao;
 
         } catch (Exception e) {
-            if (entidade.getTransaction().isActive()) {
-                entidade.getTransaction().rollback();
+            if (e1.getTransaction().isActive()) {
+                e1.getTransaction().rollback();
             }
             throw new RuntimeException("Erro ao processar a locação: " + e.getMessage(), e);
         }
