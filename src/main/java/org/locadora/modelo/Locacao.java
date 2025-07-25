@@ -21,7 +21,7 @@ public class Locacao implements EntidadeBase {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "locacao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemLocacao> itens = new ArrayList<>(); // Adicionar inicialização aqui
+    private List<ItemLocacao> itens = new ArrayList<>();
 
     public Locacao() {}
 
@@ -32,9 +32,8 @@ public class Locacao implements EntidadeBase {
 
     public Integer getId() { return id; }
     public LocalDate getData() { return data; }
-    public void setData(LocalDate data) { this.data = data; }
     public Cliente getCliente() { return cliente; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
+    void setCliente(Cliente cliente) { this.cliente = cliente; }
 
     public void adicionarItem(ItemLocacao item) {
         this.itens.add(item);
