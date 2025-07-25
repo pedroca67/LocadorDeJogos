@@ -29,7 +29,6 @@ public class LocacaoMain {
                 return;
             }
 
-            // ALTERAÇÃO 1: O Map agora guarda um array de inteiros [dias, quantidade]
             Map<Integer, int[]> itensParaLocar = new HashMap<>();
             boolean adicionarJogo = true;
 
@@ -59,9 +58,7 @@ public class LocacaoMain {
                 }
 
                 List<Integer> idsValidos = jogoSelecionado.getPlataformas()
-                        .stream()
-                        .map(JogoPlataforma::getId)
-                        .collect(Collectors.toList());
+                        .stream().map(JogoPlataforma::getId).collect(Collectors.toList());
 
                 if (!idsValidos.contains(idPlataforma)) {
                     System.err.println("ID de plataforma invalido! Por favor, tente novamente.");
@@ -77,8 +74,7 @@ public class LocacaoMain {
                     System.err.println("Quantidade de dias inválida.");
                     continue;
                 }
-                
-                // ALTERAÇÃO 2: Pergunta a quantidade
+
                 System.out.print("Quantas cópias deseja alugar? ");
                 int quantidade;
                 try {
@@ -89,7 +85,6 @@ public class LocacaoMain {
                     continue;
                 }
 
-                // ALTERAÇÃO 3: Adiciona o array com [dias, quantidade] ao map
                 itensParaLocar.put(idPlataforma, new int[]{dias, quantidade});
 
                 System.out.print("Deseja adicionar outro jogo? (S/N): ");

@@ -18,28 +18,28 @@ public class ClienteMain {
         System.out.print("Nome: ");
         String nome = s.nextLine().trim();
         if (nome.isEmpty()) {
-            System.err.println("Erro: Nome não pode estar vazio.");
+            System.err.println("Nome não pode estar vazio.");
             return;
         }
 
         System.out.print("Email: ");
         String email = s.nextLine().trim();
         if (email.isEmpty() || !email.contains("@")) {
-            System.err.println("Erro: Email inválido.");
+            System.err.println("Email inválido.");
             return;
         }
 
         System.out.print("Telefone: ");
         String telefone = s.nextLine().trim();
         if (telefone.isEmpty()) {
-            System.err.println("Erro: Telefone não pode estar vazio.");
+            System.err.println("Telefone não pode estar vazio.");
             return;
         }
 
         System.out.print("Senha: ");
         String senha = s.nextLine().trim();
         if (senha.length() < 4) {
-            System.err.println("Erro: Senha deve ter pelo menos 4 caracteres.");
+            System.err.println("Senha deve ter pelo menos 4 caracteres.");
             return;
         }
 

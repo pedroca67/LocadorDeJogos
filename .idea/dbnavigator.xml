@@ -32,7 +32,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="7a37ee1f-3ac5-4bb7-96ef-8991b0a9c24a" object-ref="schemas/locadora/tables/jogo" />
+      <object connection-id="7a37ee1f-3ac5-4bb7-96ef-8991b0a9c24a" object-ref="consoles/Connection" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">

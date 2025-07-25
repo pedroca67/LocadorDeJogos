@@ -6,14 +6,19 @@
         <class>org.locadora.modelo.Cliente</class>
         <class>org.locadora.modelo.Jogo</class>
         <class>org.locadora.modelo.Plataforma</class>
-        <class>org.locadora.modelo.PrecoJogoPlataforma</class>
+        <class>org.locadora.modelo.JogoPlataforma</class>
+        <class>org.locadora.modelo.Locacao</class>
+        <class>org.locadora.modelo.ItemLocacao</class>
+        <class>org.locadora.modelo.Console</class>
+        <class>org.locadora.modelo.Acessorio</class>
+        <class>org.locadora.modelo.UtilizacaoDoConsolePeloCliente</class>
 
         <properties>
             <!-- Conexão com MySQL -->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/locadora?useSSL=false&amp;serverTimezone=UTC"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
-            <property name="jakarta.persistence.jdbc.password" value="1234"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
 
             <!-- Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
