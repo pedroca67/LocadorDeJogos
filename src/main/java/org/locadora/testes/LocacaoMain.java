@@ -100,12 +100,12 @@ public class LocacaoMain {
                 System.out.println("Nenhum item adicionado. Locação cancelada.");
                 return;
             }
-
-            // ALTERAÇÃO 4: A chamada ao serviço agora passa o novo Map
-            Locacao locacaoRealizada = locacaoService.alugar(clienteId, itensParaLocar);
+            
+            Locacao  novaLocacao = locacaoService.alugar(clienteId, itensParaLocar);
             System.out.println("\n--- Locação Realizada com Sucesso! ---");
-            System.out.println("ID da Locação: " + locacaoRealizada.getId());
-            System.out.println("Cliente: " + locacaoRealizada.getCliente().getNome());
+            System.out.println("ID da Locação: " +  novaLocacao.getId());
+            System.out.println("Cliente: " +  novaLocacao.getCliente().getNome());
+            System.out.println("Valor Total: R$ " +  novaLocacao.getValorTotal());
 
         } catch (Exception e) {
             System.err.println("Problema: " + e.getMessage());

@@ -47,8 +47,7 @@ public class Locacao implements EntidadeBase {
 
     public BigDecimal getValorTotal() {
         return itens.stream()
-                .map(item -> {
-                    BigDecimal precoDiario = item.getJogoPlataforma().getPrecoDiario();
+                .map(item -> { BigDecimal precoDiario = item.getJogoPlataforma().getPrecoDiario();
                     BigDecimal dias = new BigDecimal(item.getDias());
                     BigDecimal quantidade = new BigDecimal(item.getQuantidade());
                     return precoDiario.multiply(dias).multiply(quantidade);
