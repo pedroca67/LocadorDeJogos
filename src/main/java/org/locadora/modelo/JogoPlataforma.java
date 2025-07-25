@@ -31,7 +31,6 @@ public class JogoPlataforma implements EntidadeBase {
     }
 
     public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
     public Jogo getJogo() { return jogo; }
     public void setJogo(Jogo jogo) { this.jogo = jogo; }
     public Plataforma getPlataforma() { return plataforma; }

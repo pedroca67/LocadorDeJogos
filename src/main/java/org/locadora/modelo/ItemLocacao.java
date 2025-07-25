@@ -24,7 +24,6 @@ public class ItemLocacao implements EntidadeBase {
 
     // --- Getters e Setters ---
     public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
     public Integer getDias() { return dias; }
     public void setDias(Integer dias) { this.dias = dias; }
     public Locacao getLocacao() { return locacao; }

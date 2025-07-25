@@ -31,7 +31,6 @@ public class Locacao implements EntidadeBase {
     }
 
     public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
     public LocalDate getData() { return data; }
     public void setData(LocalDate data) { this.data = data; }
     public Cliente getCliente() { return cliente; }

@@ -32,7 +32,6 @@ public class UtilizacaoDoConsolePeloCliente implements EntidadeBase {
     }
 
     public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
     public LocalDateTime getInicio() { return inicio; }
     public void setInicio(LocalDateTime inicio) { this.inicio = inicio; }
     public LocalDateTime getFim() { return fim; }
