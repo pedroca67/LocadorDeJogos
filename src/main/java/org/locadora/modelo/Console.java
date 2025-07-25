@@ -2,6 +2,7 @@ package org.locadora.modelo;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,10 +17,10 @@ public class Console implements EntidadeBase {
     private BigDecimal precoPorHora;
 
     @OneToMany(mappedBy = "console", cascade = CascadeType.ALL)
-    private List<Acessorio> acessorios;
+    private List<Acessorio> acessorios = new ArrayList<>();
 
     @OneToMany(mappedBy = "console", cascade = CascadeType.ALL)
-    private List<UtilizacaoDoConsolePeloCliente> utilizacoes;
+    private List<UtilizacaoDoConsolePeloCliente> utilizacoes = new ArrayList<>();
 
     public Console() {}
 
@@ -28,7 +29,6 @@ public class Console implements EntidadeBase {
         this.precoPorHora = precoPorHora;
     }
 
-    // --- Getters e Setters ---
     public Integer getId() { return id; }
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
@@ -36,15 +36,17 @@ public class Console implements EntidadeBase {
     public void setPrecoPorHora(BigDecimal precoPorHora) { this.precoPorHora = precoPorHora; }
     public List<Acessorio> getAcessorios() { return acessorios; }
     public List<UtilizacaoDoConsolePeloCliente> getUtilizacoes() { return utilizacoes; }
+
     public void adicionarAcessorio(Acessorio acessorio) {
         this.acessorios.add(acessorio);
         acessorio.setConsole(this);
     }
+
     public void adicionarUtilizacao(UtilizacaoDoConsolePeloCliente utilizacao) {
         this.utilizacoes.add(utilizacao);
         utilizacao.setConsole(this);
     }
-    // --- equals() e hashCode() ---
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
