@@ -1,6 +1,7 @@
 package org.locadora.modelo;
 
 import jakarta.persistence.*;
+import java.util.ArrayList; // Importar
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class Jogo implements EntidadeBase {
     private String titulo;
 
     @OneToMany(mappedBy = "jogo", cascade = CascadeType.ALL)
-    private List<JogoPlataforma> plataformas;
+    private List<JogoPlataforma> plataformas = new ArrayList<>(); // Adicionar inicialização aqui
 
     public Jogo() {}
 
@@ -26,12 +27,12 @@ public class Jogo implements EntidadeBase {
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public List<JogoPlataforma> getPlataformas() { return plataformas; }
+
     public void adicionarPlataforma(JogoPlataforma jogoPlataforma) {
         this.plataformas.add(jogoPlataforma);
-        jogoPlataforma.setJogo(this); // Mantém a consistência
+        jogoPlataforma.setJogo(this);
     }
 
-    // --- equals() e hashCode() ---
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

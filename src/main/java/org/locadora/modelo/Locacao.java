@@ -1,9 +1,9 @@
 package org.locadora.modelo;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList; // Importar
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +21,7 @@ public class Locacao implements EntidadeBase {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "locacao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemLocacao> itens;
+    private List<ItemLocacao> itens = new ArrayList<>(); // Adicionar inicialização aqui
 
     public Locacao() {}
 
@@ -35,14 +35,14 @@ public class Locacao implements EntidadeBase {
     public void setData(LocalDate data) { this.data = data; }
     public Cliente getCliente() { return cliente; }
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
+
     public void adicionarItem(ItemLocacao item) {
         this.itens.add(item);
-        item.setLocacao(this); // Essencial para manter o relacionamento bidirecional consistente!
+        item.setLocacao(this);
     }
 
-    // O getter pode continuar retornando a lista (ou a versão não modificável)
     public List<ItemLocacao> getItens() {
-        return this.itens; // Ou Collections.unmodifiableList(this.itens);
+        return this.itens;
     }
 
     public BigDecimal getValorTotal() {
@@ -56,7 +56,6 @@ public class Locacao implements EntidadeBase {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    // --- equals() e hashCode() ---
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
