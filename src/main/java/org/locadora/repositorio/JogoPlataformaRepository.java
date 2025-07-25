@@ -6,11 +6,11 @@ import org.locadora.modelo.JogoPlataforma;
 public class JogoPlataformaRepository {
 
     private final DAOGenerico<JogoPlataforma> dao;
-    private final EntityManager em;
+    private final EntityManager e1;
 
-    public JogoPlataformaRepository(EntityManager em) {
-        this.em = em;
-        this.dao = new DAOGenerico<>(em);
+    public JogoPlataformaRepository(EntityManager e1) {
+        this.e1 = e1;
+        this.dao = new DAOGenerico<>(e1);
     }
 
     public JogoPlataforma buscaPorId(Integer id) {

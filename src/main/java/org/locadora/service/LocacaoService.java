@@ -53,7 +53,7 @@ public class LocacaoService {
             }
 
             novaLocacao.setItens(itensDaLocacao);
-            locacaoRepo.salvaOuAtualiza(novaLocacao);
+            locacaoRepo.salvar(novaLocacao);
 
             e1.getTransaction().commit();
             return novaLocacao;

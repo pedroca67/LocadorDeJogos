@@ -31,7 +31,7 @@ public class JogoService {
             List<JogoPlataforma> jogoPlataformas = new ArrayList<>();
 
             for (String nomePlataforma : nomesPlataformas) {
-                Plataforma plataforma = plataformaRepo.buscaPorNomeExato(nomePlataforma);
+                Plataforma plataforma = plataformaRepo.buscaPorNome(nomePlataforma);
                 if (plataforma == null) {
                     plataforma = new Plataforma(nomePlataforma);
                 }
@@ -45,7 +45,7 @@ public class JogoService {
             
             novoJogo.setPlataformas(jogoPlataformas);
             
-            jogoRepo.salvaOuAtualiza(novoJogo);
+            jogoRepo.salva(novoJogo);
 
             e1.getTransaction().commit();
             return novoJogo;

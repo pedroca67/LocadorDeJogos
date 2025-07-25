@@ -24,7 +24,7 @@ public class ClienteService {
         novoCliente.setTelefone(telefone);
         novoCliente.setSenha(senha);
 
-        clienteR.salvaOuAtualiza(novoCliente);
+        clienteR.salva(novoCliente);
 
         e1.getTransaction().commit();
         return novoCliente;

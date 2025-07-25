@@ -5,18 +5,18 @@ import org.locadora.modelo.Locacao;
 
 public class LocacaoRepository {
 
-    private final EntityManager manager;
+    private final EntityManager gere;
 
-    public LocacaoRepository(EntityManager manager) {
-        this.manager = manager;
+    public LocacaoRepository(EntityManager gere) {
+        this.gere = gere;
     }
 
-    public Locacao salvaOuAtualiza(Locacao locacao) {
+    public Locacao salvar(Locacao locacao) {
         if (locacao.getId() == null) {
-            manager.persist(locacao);
+            gere.persist(locacao);
             return locacao;
         } else {
-            return manager.merge(locacao);
+            return gere.merge(locacao);
         }
     }
 }

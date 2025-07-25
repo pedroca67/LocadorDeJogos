@@ -6,15 +6,15 @@ import org.locadora.modelo.Plataforma;
 
 public class PlataformaRepository {
 
-    private final EntityManager manager;
+    private final EntityManager gere;
 
-    public PlataformaRepository(EntityManager manager) {
-        this.manager = manager;
+    public PlataformaRepository(EntityManager gere) {
+        this.gere = gere;
     }
 
-    public Plataforma buscaPorNomeExato(String nome) {
+    public Plataforma buscaPorNome(String nome) {
         try {
-            return manager.createQuery("SELECT p FROM Plataforma p WHERE p.nome = :nome", Plataforma.class)
+            return gere.createQuery("select p from Plataforma p where p.nome = :nome", Plataforma.class)
                     .setParameter("nome", nome)
                     .getSingleResult();
         } catch (NoResultException e) {
