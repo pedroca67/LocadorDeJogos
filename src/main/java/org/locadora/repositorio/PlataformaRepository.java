@@ -14,9 +14,7 @@ public class PlataformaRepository {
 
     public Plataforma buscaPorNome(String nome) {
         try {
-            return gere.createQuery("select p from Plataforma p where p.nome = :nome", Plataforma.class)
-                    .setParameter("nome", nome)
-                    .getSingleResult();
+            return gere.createQuery("select p from Plataforma p where p.nome = :nome", Plataforma.class).setParameter("nome", nome).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
